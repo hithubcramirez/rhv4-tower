@@ -9,14 +9,14 @@
     - datacenter: "sat_dc"
     - cluster: "sat_cluster"
     - host: "hiper.lab-internal.sat"
-    - host_address: "10.17.193.9"
+    - host_address: "10.10.30.11"
+    - host_netmask: "255.255.255.0"
     - data_name: "sat_vms"
     - iso_name: "sat_iso"
     - template: "sat-rhel7"
     - vm: "sat_rhel7"
-    - vm_hostname: "{{ vm }}_{{ ansible_date_time.epoch }}" 
+    - vm_hostname: " mapm.lab-internal.sat" 
     - password: 'redhat2017'
-    - domain: '.lab-internal.sat'
   tasks:
     - name: Asignando Variables
       block:
@@ -36,8 +36,8 @@
             cloud_init:
               host_name: "{{ vm_hostname }}"
               nic_boot_protocol: static
-              nic_ip_address: 10.10.20.12
-              nic_netmask: 255.255.0.0
+              nic_ip_address: "{{ host_address }}"
+              nic_netmask: "{{ host_netmask }}"
               nic_name: eth0
               nic_on_boot: true
               custom_script: |
@@ -49,11 +49,10 @@
               user_name: root
               root_password: super_password
           register: infra_instance_creation
-        - debug: var=infra_instance_creation
+        - debug: var=infra_instance_creation      
       always:
         - name: Always revoke the SSO token
           ovirt_auth:
             state: absent
             ovirt_auth: "{{ ovirt_auth }}"
-    - name: Run a command using a templated variable (always use quote filter to avoid injection)
-      shell: tower-cli host associate --host 10.10.20.12 --group weblogic -u admin -p 'R3dH@t2017!.-' -h 10.17.193.94
+  
