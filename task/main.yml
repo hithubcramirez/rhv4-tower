@@ -1,5 +1,5 @@
 ---
-- hosts: ovirt
+- hosts: weblogic
   remote_user: root
   gather_facts: True
   vars:
