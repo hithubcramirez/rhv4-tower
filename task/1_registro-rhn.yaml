@@ -1,0 +1,61 @@
+---
+- hosts: weblogic
+  remote_user: root
+  vars:
+    - rhn_username: m.pineda
+    - rhn_pass: "redhat2016!.-"
+    - hostname_s:
+    - domain_s: .lab-internal.sat
+  tasks:
+    - shell: ip  a s eth0 | grep "inet " | awk -F '\\.' '{print $7}' |awk -F '\\ ' '{print $1}'
+      register: ipaserver_id
+      
+    - name: Configurando nombre de Servidor IPA
+      hostname:
+        name: "{{ hostname_s }}{{ ipaserver_id.stdout }}{{ domain_s }}"
+      register: hostname_full
+      
+    - debug: msg="{{ hostname_full.name  }}"
+    
+    - name: Add IP address of all hosts to all hosts
+      lineinfile:
+         dest: /etc/hosts
+         line: "{{ ansible_eth0.ipv4.address }} {{ hostname_full.name }}"
+         state: present
+
+    - name: Registrando Sistema en Portal de Red Hat.
+      redhat_subscription:
+          state: present
+          username: " {{ rhn_username }} " 
+          password: "{{ rhn_pass }}"
+          consumer_name: "{{ hostname_full.name }}"
+          autosubscribe: true
+          force_register: yes
+          
+    - name: Habilitando canales necesarios.
+      shell: |
+        subscription-manager repos --disable=*
+        subscription-manager repos --enable rhel-7-server-rpms --enable rhel-7-server-extras-rpms --enable rhel-7-server-optional-rpms
+        
+    - name: Actualizando Sistema Operativo
+      yum:
+        name: '*'
+        state: latest
+        
+    - name: "Limpiando metadata de los repositorios."
+      command: "yum clean all"
+
+    - name: Reiniciando nodo
+      shell: sleep 2 && shutdown -r now "Ansible reboot"
+      async: 1
+      poll: 0
+      ignore_errors: true
+      
+    - name: Esperando conexión con servidor.
+      local_action: wait_for
+      args:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        state: started
+        delay: 30
+        timeout: 60
