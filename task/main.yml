@@ -56,4 +56,4 @@
             state: absent
             ovirt_auth: "{{ ovirt_auth }}"
     - name: Run a command using a templated variable (always use quote filter to avoid injection)
-      shell: tower-cli host associate --host 10.10.20.12 --group weblogic
+      shell: tower-cli host associate --host 10.10.20.12 --group weblogic -u admin -p 'R3dH@t2017!.-' -h 10.17.193.94
