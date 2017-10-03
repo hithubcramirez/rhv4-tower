@@ -52,7 +52,7 @@
         - debug: var=infra_instance_creation
         
         - name: Aregando equipo al inventario
-          shell: tower-cli host create -n "{{ host_address }}" -i Aplicaciones --enabled false --fail-on-found
+          shell: ssh root@10.17.193.94 tower-cli host create -n "{{ host_address }}" -i Aplicaciones --enabled false --fail-on-found
         - name: Agregando equipo al grupo
           shell: tower-cli host associate --host " {{ host_address }}" --group weblogic
         #- name: Nombre de Host
