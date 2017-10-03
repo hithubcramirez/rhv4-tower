@@ -9,7 +9,7 @@
     - datacenter: "sat_dc"
     - cluster: "sat_cluster"
     - host: "hiper.lab-internal.sat"
-    - host_address: "10.10.30.11"
+    - host_address: "10.10.30.12"
     - host_netmask: "255.255.255.0"
     - data_name: "sat_vms"
     - iso_name: "sat_iso"
