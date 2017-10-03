@@ -1,0 +1,57 @@
+---
+- hosts: ovirt
+  remote_user: root
+  gather_facts: True
+  vars:
+    - username: admin@internal
+    - url: 'https://manager.lab-internal.sat/ovirt-engine/api'
+    - ca_file: '/etc/pki/ovirt-engine/ca.pem'
+    - datacenter: "sat_dc"
+    - cluster: "sat_cluster"
+    - host: "hiper.lab-internal.sat"
+    - host_address: "10.17.193.9"
+    - data_name: "sat_vms"
+    - iso_name: "sat_iso"
+    - template: "sat-rhel7"
+    - vm: "sat_rhel7"
+    - vm_hostname: "{{ vm }}_{{ ansible_date_time.epoch }}" 
+    - password: 'redhat2017'
+    - domain: '.lab-internal.sat'
+  tasks:
+    - name: Asignando Variables
+      block:
+        - name: "Realizando autenticacion"
+          no_log: true
+          ovirt_auth:
+            url: "{{ url }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            ca_file: "{{ ca_file }}"
+        - name: Creando vm desde template
+          ovirt_vms:
+            auth: "{{ ovirt_auth }}"
+            name: "{{ vm }}-{{ ansible_date_time.epoch }}"
+            template: "{{ template }}"
+            cluster: "{{ cluster }}"
+            cloud_init:
+              host_name: "{{ vm_hostname }}"
+              nic_boot_protocol: static
+              nic_ip_address: 10.10.20.12
+              nic_netmask: 255.255.0.0
+              nic_name: eth0
+              nic_on_boot: true
+              custom_script: |
+                write_files:
+                 - content: |
+                     Hello, world!
+                   path: /tmp/greeting.txt
+                   permissions: '0644'
+              user_name: root
+              root_password: super_password
+          register: infra_instance_creation
+        - debug: var=infra_instance_creation
+      always:
+        - name: Always revoke the SSO token
+          ovirt_auth:
+            state: absent
+            ovirt_auth: "{{ ovirt_auth }}"
