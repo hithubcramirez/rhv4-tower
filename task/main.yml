@@ -37,7 +37,7 @@
         - name: Creando vm desde template
           ovirt_vms:
             auth: "{{ ovirt_auth }}"
-            name: "{{ vm }}-{{ ansible_date_time.epoch }}"
+            name: "{{ vm_name }}-{{ ansible_date_time.epoch }}"
             template: "{{ template }}"
             cluster: "{{ cluster }}"
             cloud_init:
