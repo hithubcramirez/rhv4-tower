@@ -3,27 +3,18 @@
   remote_user: root
   gather_facts: True
   vars:
-##############################
-# Variables Manager 
-##############################
     - username: admin@internal
-    - url: 'https://manager.dominio/ovirt-engine/api'
+    - url: 'https://manager.lab-internal.sat/ovirt-engine/api'
     - ca_file: '/etc/pki/ovirt-engine/ca.pem'
-    - cluster: "rhv-cluster"
-    - template: "rhv-template"
-    - password: 'rhv-password'
-##############################
-# Variables VM's
-##############################
-    - vm_address: "xxx.xxx.xxx.xxx"
-    - vm_netmask: "xxx.xxx.xxx.xxx"
-    - vm_name: "nombre_vm"
-    - vm_gateway: "xxx.xxx.xxx.xxx"
-    - vm_dns1: "xxx.xxx.xxx.xxx"
-    - vm_dns2: "xxx.xxx.xxx.xxx"
-    - vm_username: "user_name"
-    - vm_user_passwd: "user_passwd"
-    
+    - cluster: "sat_cluster"
+    - host_address: "10.17.193.236"
+    - host_netmask: "255.255.254.0"
+    - host_gateway: "10.17.193.254"
+    - host_dns1: "10.5.30.160"
+    - host_dns2: "10.11.5.19"
+    - template: "base1-1"
+    - vm: "sat_rhel7"
+    - password: 'redhat2017'
   tasks:
     - name: Asignando Variables
       block:
@@ -37,7 +28,7 @@
         - name: Creando vm desde template
           ovirt_vms:
             auth: "{{ ovirt_auth }}"
-            name: "{{ vm_name }}-{{ ansible_date_time.epoch }}"
+            name: "{{ vm }}-{{ ansible_date_time.epoch }}"
             template: "{{ template }}"
             cluster: "{{ cluster }}"
             cloud_init:
@@ -51,14 +42,14 @@
                  - content: |
                      BOOTPROTO=static
                      DEVICE=eth0
-                     IPADDR={{ vm_name }}
-                     NETMASK={{ vm_netmask }}
-                     GATEWAY={{ vm_gateway }}
+                     IPADDR={{ host_address }}
+                     NETMASK={{ host_netmask }}
+                     GATEWAY={{ host_gateway }}
                      ONBOOT=yes
                      TYPE=Ethernet
                      USERCTL=no
-                     DNS1={{ vm_dns1 }}
-                     DNS2={{ vm_dns2 }}
+                     DNS1={{ host_dns1 }}
+                     DNS2={{ host_dns2 }}
                    path: /tmp/greeting.txt
                    permissions: '0644'
           register: infra_instance_creation
@@ -70,14 +61,17 @@
           ovirt_auth:
             state: absent
             ovirt_auth: "{{ ovirt_auth }}"
+############################################
+# Playbook 2
+############################################
 
 - hosts: created_nodes
   gather_facts: True
   remote_user: root
   vars:
-    - rhn_username: "rhn_user"
-    - rhn_pass: "rhn_password"
-    - vm_hostname: "rhn_hostname"
+    - rhn_username: m.pineda
+    - rhn_pass: "redhat2016!.-"
+    - vm_hostname: "mapm.lab-internal.sat"
   tasks:
     - name: Configurando nombre de Servidor.
       hostname:
@@ -141,6 +135,3 @@
         state: started
         delay: 60
         timeout: 120
-############################################
-# SAT Playbook Aquí.
-############################################
