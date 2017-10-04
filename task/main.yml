@@ -89,7 +89,7 @@
         name: cloud-init
         state: absent
 
-    - name: reload service httpd, in all cases
+    - name: Reiniciando servicio de red.
       systemd:
         name: network
         state: restarted
