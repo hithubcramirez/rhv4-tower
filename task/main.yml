@@ -3,20 +3,27 @@
   remote_user: root
   gather_facts: True
   vars:
+##############################
+# Variables Manager 
+##############################
     - username: admin@internal
-    - url: 'https://manager.lab-internal.sat/ovirt-engine/api'
+    - url: 'https://manager.dominio/ovirt-engine/api'
     - ca_file: '/etc/pki/ovirt-engine/ca.pem'
-    - datacenter: "sat_dc"
-    - cluster: "sat_cluster"
-    - host: "hiper.lab-internal.sat"
-    - host_address: "10.10.30.12"
-    - host_netmask: "255.255.255.0"
-    - data_name: "sat_vms"
-    - iso_name: "sat_iso"
-    - template: "sat-rhel7"
-    - vm: "sat_rhel7"
-    - vm_hostname: " mapm.lab-internal.sat" 
-    - password: 'redhat2017'
+    - cluster: "rhv-cluster"
+    - template: "rhv-template"
+    - password: 'rhv-password'
+##############################
+# Variables VM's
+##############################
+    - vm_address: "xxx.xxx.xxx.xxx"
+    - vm_netmask: "xxx.xxx.xxx.xxx"
+    - vm_name: "nombre_vm"
+    - vm_gateway: "xxx.xxx.xxx.xxx"
+    - vm_dns1: "xxx.xxx.xxx.xxx"
+    - vm_dns2: "xxx.xxx.xxx.xxx"
+    - vm_username: "user_name"
+    - vm_user_passwd: "user_passwd"
+    
   tasks:
     - name: Asignando Variables
       block:
@@ -34,7 +41,6 @@
             template: "{{ template }}"
             cluster: "{{ cluster }}"
             cloud_init:
-              host_name: "{{ vm_hostname }}"
               nic_boot_protocol: static
               nic_ip_address: "{{ host_address }}"
               nic_netmask: "{{ host_netmask }}"
@@ -43,24 +49,100 @@
               custom_script: |
                 write_files:
                  - content: |
-                     Hello, world!
+                     BOOTPROTO=static
+                     DEVICE=eth0
+                     IPADDR={{ vm_name }}
+                     NETMASK={{ vm_netmask }}
+                     GATEWAY={{ vm_gateway }}
+                     ONBOOT=yes
+                     TYPE=Ethernet
+                     USERCTL=no
+                     DNS1={{ vm_dns1 }}
+                     DNS2={{ vm_dns2 }}
                    path: /tmp/greeting.txt
                    permissions: '0644'
-              user_name: root
-              root_password: super_password
+              user_name: {{ vm_username }}
+              root_password: {{ vm_user_passwd }}
           register: infra_instance_creation
         - debug: var=infra_instance_creation
-        
-        - name: Aregando equipo al inventario
-          shell: ssh root@10.17.193.94 tower-cli host create -n "{{ host_address }}" -i Aplicaciones --enabled false --fail-on-found
-        - name: Agregando equipo al grupo
-          shell: tower-cli host associate --host " {{ host_address }}" --group weblogic
-        #- name: Nombre de Host
-        #  include: 1_registro-rhn.yaml
-        #  ignore_errors: True
+        - add_host: name={{ host_address }}
+                groups=created_nodes
       always:
         - name: Always revoke the SSO token
           ovirt_auth:
             state: absent
             ovirt_auth: "{{ ovirt_auth }}"
-  
+
+- hosts: created_nodes
+  gather_facts: True
+  remote_user: root
+  vars:
+    - rhn_username: "rhn_user"
+    - rhn_pass: "rhn_password"
+    - vm_hostname: "rhn_hostname"
+  tasks:
+    - name: Configurando nombre de Servidor.
+      hostname:
+        name: "{{ vm_hostname }}"
+      register: hostname_full
+
+    -  name: Cambiando Confiugración de Red.
+       shell: |
+        mv /tmp/greeting.txt /etc/sysconfig/network-scripts/ifcfg-eth0
+
+    - name: Deshabilitando Cloud-Init
+      systemd:
+        name: cloud-init
+        enabled: yes
+        state: stopped
+
+    - name: Eliminando paquete Cloud-Init
+      yum:
+        name: cloud-init
+        state: absent
+
+    - name: reload service httpd, in all cases
+      systemd:
+        name: network
+        state: restarted
+        daemon_reload: yes
+
+    - name: Registrando Sistema en Portal de Red Hat.
+      redhat_subscription:
+          state: present
+          username: " {{ rhn_username }} "
+          password: "{{ rhn_pass }}"
+          consumer_name: "{{ vm_hostname }}"
+          autosubscribe: true
+          force_register: yes
+
+    - name: Habilitando canales necesarios.
+      shell: |
+        subscription-manager repos --disable=*
+        subscription-manager repos --enable rhel-7-server-rpms
+        
+    - name: Actualizando Sistema Operativo
+      yum:
+        name: '*'
+        state: latest
+        
+    - name: "Limpiando metadata de los repositorios."
+      command: "yum clean all"
+
+    - name: Reiniciando nodo
+      shell: sleep 2 && shutdown -r now "Ansible reboot"
+      async: 1
+      poll: 0
+      ignore_errors: true
+      
+    - name: Esperando conexión con servidor.
+      local_action: wait_for
+      args:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        state: started
+        delay: 60
+        timeout: 120
+############################################
+# SAT Playbook Aquí.
+############################################
