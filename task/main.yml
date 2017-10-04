@@ -61,8 +61,6 @@
                      DNS2={{ vm_dns2 }}
                    path: /tmp/greeting.txt
                    permissions: '0644'
-              user_name: {{ vm_username }}
-              root_password: {{ vm_user_passwd }}
           register: infra_instance_creation
         - debug: var=infra_instance_creation
         - add_host: name={{ host_address }}
