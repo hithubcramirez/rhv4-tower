@@ -52,8 +52,6 @@
                      DNS2={{ host_dns2 }}
                    path: /tmp/greeting.txt
                    permissions: '0644'
-                user_name: root	
-                root_password: redhat2017
           register: infra_instance_creation
         - debug: var=infra_instance_creation
         - add_host: name={{ host_address }}
