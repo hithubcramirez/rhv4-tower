@@ -6,7 +6,7 @@
 
 Red Hat Cloud Infrastructure es una suite que permite construir y manejar distintos tipos de proveedores de infraestructura, 
 las cuales pueden  ser tecnologías de virtualización tradicional (Vmware, Hyper-v, Red Hat), Infraestructura como Servicio 
-(IaaS / Openstack), como proveedores de Plataforma como Servicio (Contenedores / Openshift).
+(IaaS / Openstack), como proveedores de Plataforma como Servicio (Contenedores/Openshift).
 
 Con RHCI, puedes implementar una infraestructura integrada para incrementar el valor de tu departamento de T.I, mejorar el
 control de recursos y reducir el TCO.
@@ -40,12 +40,12 @@ Que *NO ES* este laboratorio:
   • No es un entorno de prueba.
 
 *Es solo un ejercicio para poder probar la funcionalidad.*
-
+:sectnums:
 = Laboratorio A
 == Ejercicio 1.
 
-= Instalación y configuración de Red Hat Virtualization.
-El siguiente diagrama describe el procedimiento de configuración para una implementación de Manager independiente y una implementación de motor autohospedado.
+= Instalación de Red Hat Virtualization.
+El siguiente diagrama describe el procedimiento de configuración para una implementación de Manager tradicoinal y una implementación de Manager Self-HostEngine.
 
 image::./img/RHEV_SHE_454569_0717_JCS_deployment_02.png[Procedimiento]
 
@@ -53,7 +53,6 @@ Una vez que haya instalado un sistema operativo Red Hat Enterprise Linux y se ha
 
 TIP: Este proceso a sido realizado durante el deployment del ambiente.
 
-:sectnums:
 === Conectarse vía ssh al equipo asignado como Manager (utilizar ip asignada por laboratorio)
 ----
 ssh -l root 35.190.175.2
@@ -187,7 +186,7 @@ Dependency Installed:
 Complete!
 ----
 
-=== Configuración de RHV-M
+=== Configuración de RHV-Manager.
 Después de haber instalado el paquete y las dependencias de rhevm , debe configurar Red Hat Virtualization Manager utilizando el comando engine-setup. Este comando le hace una serie de preguntas y, después de proporcionar los valores requeridos para todas las preguntas, aplica esa configuración e inicia el servicio ovirt-engine.
 
 La descripción detallada de las tareas que realiza cada pregunta lo encuentra en el siguiente link.
