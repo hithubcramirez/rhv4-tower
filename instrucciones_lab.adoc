@@ -474,25 +474,27 @@ Connection to 104.196.124.183 closed.
 
 Cuando se realiza un Login, el dashboard Default siempre mostrará un resumen de toda nuestra infraestructura, RAM, CPU, Storage.
 
+Posteriormente daremos clic en la barra izquierda sobre el menú Compute>DataCenter
+
 image::./img/Lab3_1.png[Login]
 
-Para comenzar a realizar nuestra configuración crearemos un nuevo datacenter con el nombre *TestDrive*.
+Para comenzar a realizar nuestra configuración crearemos un nuevo datacenter con el nombre *TestDrive* y posteriormente clic en *ok*.
 
 image::./img/Lab3_1.1.png[Creacion de Datacenter]
 
-Dé click en el ícono *Crear Clúster*
+Al finalizar la creación del Data Center en automatico aparecerá una nueva ventana, dé click en el ícono *Crear Clúster*
 
 image::./img/Lab3_2.png[Creacion de Cluster]
 
-Verifique que la información de los campos sea igual a la de la imagen.
+Verifique que la información de los campos sea igual a la de la imagen y dé clic en *ok*.
 
 image::./img/Lab3_3.png[Datos Cluster ]
 
-Dé click en el ícono de *Configurar Host*
+Al finalizar la creación del Cluster en automatico aparecerá una nueva ventana, dé click en el ícono de *Configurar Host*
 
 image::./img/Lab3_4.png[Instalación de Hipervisor]
 
-Verifique que la información a reserva de la ip sea similar a la de la imagen.
+Verifique que la información a reserva de la ip sea similar a la de la imagen y dé clic en *ok*.
 
 image::./img/Lab3_5.png[Datos de Hipervisor]
 
