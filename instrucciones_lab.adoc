@@ -111,9 +111,9 @@ Resolving Dependencies
 
 Dependencies Resolved
 
-=====================================================================================================
+================================================================================================
  Package                      Arch      Version           Repository                             Size
-=====================================================================================================
+================================================================================================
 Installing:
  rhvm                        	noarch   4.2.0.2-0.1.el7    rhel-7-server-rhv-4-beta-rpms          7.9 k
 Installing for dependencies:
@@ -189,7 +189,7 @@ Después de haber instalado el paquete y las dependencias de rhevm , debe config
 
 La descripción detallada de las tareas que realiza cada pregunta lo encuentra en el siguiente link.
 
-https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2-beta/html-single/installation_guide/#Red_Hat_Enterprise_Virtualization_Manager_Configuration_Overview[DEMO]
+https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2-beta/html-single/installation_guide/#Red_Hat_Enterprise_Virtualization_Manager_Configuration_Overview[CONFIGURACIÓN RED HAT VIRTUALIZATION]
 
 WARNING: Seleccionar las opciones como se muestran a continuación
 
@@ -219,7 +219,6 @@ WARNING: Seleccionar las opciones como se muestran a continuación
 
 === El preview de configuración quedará de la siguiente forma:
 ----
-
 [ INFO  ] Stage: Setup validation
 
           --== CONFIGURATION PREVIEW ==--
@@ -253,6 +252,7 @@ WARNING: Seleccionar las opciones como se muestran a continuación
           Configure Image I/O Proxy               : True
           Configure VMConsole Proxy               : True
 ----
+
 === Comienza el Proceso de configuración
 ----
 
@@ -353,9 +353,8 @@ Un host de Red Hat Enterprise Linux, también conocido como hipervisor basado en
 Asegúrese de que todos los paquetes actualmente instalados estén actualizados:
 
 ----
-
 [root@manager ~]# yum update -y
-
+----
 Puede instalar una interfaz de usuario de Cockpit para supervisar los recursos del host y realizar tareas administrativas.
 
 Cockpit es un administrador de servidor que facilita la administración de sus servidores GNU/Linux a través de un navegador web.
@@ -437,7 +436,6 @@ Dependency Installed:
   yum-utils.noarch 0:1.1.31-42.el7
 
 Complete!
-
 ----
 
 === Habilitar e iniciar servicio cockpit
