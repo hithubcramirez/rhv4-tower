@@ -24,6 +24,13 @@ proporciona un uso más eficiente de los recursos del servidor físico. Con Red 
 su infraestructura virtual, incluidos hosts, máquinas virtuales, redes, almacenamiento y usuarios, desde una interfaz 
 gráfica de usuario centralizada o API RESTful.
 
+* Arquitectura Red Hat Virtualization.
+
+![GitHub Logo](/img/471.png)
+
+
+
+
 === DISCLAIMER
 Que *NO ES* este laboratorio:
 
