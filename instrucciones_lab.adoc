@@ -331,7 +331,7 @@ Acceda al Portal de administración utilizando un navegador web.
 
 == Ejercicio 2.
 
-= Instalación y configuración de Red Hat Host.
+= Instalación de Red Hat Host.
 
 Red Hat Virtualization soporta dos tipos de hosts: Red Hat Virtualization Hypervisor (RHVH) y Red Hat Enterprise Linux Host. Dependiendo de los requisitos de su entorno, es posible que desee utilizar un solo tipo o ambos en su entorno Red Hat Virtualization. Se recomienda instalar y conectar al menos dos hosts al entorno Red Hat Virtualization. Cuando adjunte solo un host, no podrá acceder a características como migración en vivo y la alta disponibilidad.
 
@@ -468,3 +468,6 @@ Connection to 104.196.124.183 closed by remote host.
 Connection to 104.196.124.183 closed.
 ----
 
+== Ejercicio 3.
+
+= Configuración de Red Hat Manager.
