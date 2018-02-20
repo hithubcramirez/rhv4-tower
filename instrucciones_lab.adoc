@@ -41,7 +41,7 @@ Que *NO ES* este laboratorio:
 
 *Es solo un ejercicio para poder probar la funcionalidad.*
 
-
+= Laboratorio A
 == Ejercicio 1.
 
 = Instalación y configuración de Red Hat Virtualization.
@@ -150,24 +150,14 @@ Downloading packages:
 (3/640): antlr-tool-2.7.7-30.el7.noarch.rpm                       	| 357 kB  00:00:00
 (4/640): apache-commons-collections-3.2.1-22.el7_2.noarch.rpm     	| 509 kB  00:00:00
 (5/640): apache-commons-beanutils-1.8.3-14.el7.noarch.rpm          	| 213 kB  00:00:00
-(6/640): apache-commons-codec-1.8-7.el7.noarch.rpm                	| 223 kB  00:00:00
-(7/640): aopalliance-1.0-8.el7.noarch.rpm                         	|  11 kB  00:00:00
-(8/640): ansible-2.4.1.0-1.el7ae.noarch.rpm                         | 7.6 MB  00:00:01
-(9/640): apache-commons-compress-1.5-4.el7.noarch.rpm             	| 241 kB  00:00:00
-(10/640): apache-commons-configuration-1.9-8.el7.noarch.rpm        	| 335 kB  00:00:00
-(11/640): apache-commons-io-2.4-12.el7.noarch.rpm                 	|189 kB   00:00:00
 
 ...Trunk Output
 
-(633/640): virtio-win-1.9.3-1.el7.noarch.rpm                       |  30 MB  00:00:01
-(634/640): xpp3-1.1.3.8-11.el7.noarch.rpm                        	 | 336 kB  00:00:00
-(635/640): xmlrpc-client-3.1.3-8.el7.noarch.rpm                 	 |  57 kB  00:00:00
-(636/640): xmlrpc-common-3.1.3-8.el7.noarch.rpm                  	 | 105 kB  00:00:00
 (637/640): yajl-2.0.4-4.el7.x86_64.rpm                          	 |  39 kB  00:00:00
 (638/640): yum-plugin-versionlock-1.1.31-42.el7.noarch.rpm         |  32 kB  00:00:00
 (639/640): xz-java-1.3-3.el7.noarch.rpm                         	 |  89 kB  00:00:00
 (640/640): rhv-guest-tools-iso-4.2-1.el7ev.noarch.rpm           	 | 273 MB  00:00:55
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
 Total                                                             6.1 MB/s | 1.0 GB  00:02:49
 Running transaction check
 Running transaction test
@@ -176,7 +166,6 @@ Running transaction
   Installing : ruby-libs-2.0.0.648-30.el7.x86_64                          		1/640
   Installing : otopi-1.7.5-1.el7ev.noarch                                   	2/640
   Installing : openvswitch-2.7.3-2.git20171010.el7fdp.x86_64               		3/640
-  Installing : openvswitch-ovn-common-2.7.3-2.git20171010.el7fdp.x86_64      	4/640
 
 ...Trunk Output
 
@@ -189,15 +178,11 @@ Installed:
   rhvm.noarch 0:4.2.0.2-0.1.el7
 
 Dependency Installed:
-  PyYAML.x86_64 0:3.10-11.el7
-  ansible.noarch 0:2.4.1.0-1.el7ae
   ant.noarch 0:1.9.2-9.el7
   antlr-tool.noarch 0:2.7.7-30.el7
 
 ...Trunk Output
 
-  xpp3.noarch 0:1.1.3.8-11.el7
-  xz-java.noarch 0:1.3-3.el7
   yajl.x86_64 0:2.0.4-4.el7
   yum-plugin-versionlock.noarch 0:1.1.31-42.el7
 
@@ -205,8 +190,14 @@ Complete!
 ----
 
 === Configuración de RHV-M
+Después de haber instalado el paquete y las dependencias de rhevm , debe configurar Red Hat Virtualization Manager utilizando el comando engine-setup. Este comando le hace una serie de preguntas y, después de proporcionar los valores requeridos para todas las preguntas, aplica esa configuración e inicia el servicio ovirt-engine.
+
+La descripción detallada de las tareas que realiza cada pregunta lo encuentra en el siguiente link.
+
+https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.2-beta/html-single/installation_guide/#Red_Hat_Enterprise_Virtualization_Manager_Configuration_Overview[DEMO]
 
 WARNING: Seleccionar las opciones como se muestran a continuación
+
 ----
 [root@manager ~]# engine-setup
 ----
@@ -325,7 +316,28 @@ WARNING: Seleccionar las opciones como se muestran a continuación
 [ INFO  ] Execution of setup completed successfully
 ----
 
-=== Conectarse vía ssh al equipo asignado como RHV-H (utiizar ip asignada por laboratorio)
+=== Conectándose al Portal de Administración. (utiizar ip asignada por laboratorio)
+
+Acceda al Portal de administración utilizando un navegador web.
+
+  1 En un navegador web, vaya a, {manager-fqdn} con el nombre de dominio completo que proporcionó durante la instalación. https://your-manager-fqdn/ovirt-engine.
+
+  2 Haga clic en Portal de administración. Se muestra una página de inicio de sesión de SSO. El inicio de sesión de SSO le permite iniciar sesión en la administración y en el portal de VM al mismo tiempo.
+
+  3 Ingrese su nombre de usuario y contraseña. Si está iniciando sesión por primera vez, use el nombre de usuario admin junto con la contraseña que especificó durante la instalación.
+
+  4 Seleccione el dominio contra el cual autenticar desde la lista de Dominios. Si está iniciando sesión con el nombre de usuario administrador interno , seleccione el dominio interno.
+
+  5 Haga clic en Iniciar sesión.
+
+  6 Puede ver el Portal de administración en varios idiomas. La selección predeterminada se elegirá en función de la configuración regional de su navegador web. Si desea ver el Portal de administración en un idioma que no sea el predeterminado, seleccione su idioma preferido de la lista desplegable en la página de bienvenida.
+
+== Ejercicio 2.
+
+= Instalación y configuración de Red Hat Host.
+
+Red Hat Virtualization soporta dos tipos de hosts: Red Hat Virtualization Hypervisor (RHVH) y Red Hat Enterprise Linux Host. Dependiendo de los requisitos de su entorno, es posible que desee utilizar un solo tipo o ambos en su entorno Red Hat Virtualization. Se recomienda instalar y conectar al menos dos hosts al entorno Red Hat Virtualization. Cuando adjunte solo un host, no podrá acceder a características como migración en vivo y la alta disponibilidad.
+
 ----
 ssh -l root 104.196.124.183
 The authenticity of host '104.196.124.183 (104.196.124.183)' can't be established.
@@ -338,7 +350,21 @@ Last failed login: Thu Feb  1 11:46:06 CST 2018 from 157.192.196.104.bc.googleus
 There were 14 failed login attempts since the last successful login.
 Last login: Wed Oct  4 13:29:24 2017 from 189.216.165.215
 ----
-=== Instalación de paquete [package]`cockpit-ovirt-dashboard`
+
+=== Instalación de paquete [package]`cockpit-ovirt-dashboard.
+
+Un host de Red Hat Enterprise Linux, también conocido como hipervisor basado en RHEL, se basa en una instalación básica estándar de Red Hat Enterprise Linux en un servidor físico
+
+Asegúrese de que todos los paquetes actualmente instalados estén actualizados:
+
+----
+
+[root@manager ~]# # yum update -y
+
+Puede instalar una interfaz de usuario de Cockpit para supervisar los recursos del host y realizar tareas administrativas.
+
+Cockpit es un administrador de servidor que facilita la administración de sus servidores GNU/Linux a través de un navegador web.
+
 ----
 [root@hiper1 ~]# yum install cockpit-ovirt-dashboard
 Loaded plugins: product-id, search-disabled-repos, subscription-manager
@@ -347,11 +373,9 @@ Resolving Dependencies
 ---> Package cockpit-ovirt-dashboard.noarch 0:0.10.10-0.el7ev will be installed
 --> Processing Dependency: otopi >= 1.5.2-1 for package: cockpit-ovirt-dashboard-0.10.10-0.el7ev.noarch
 --> Processing Dependency: vdsm >= 4.17.999-610 for package: cockpit-ovirt-dashboard-0.10.10-0.el7ev.noarch
---> Processing Dependency: cockpit-bridge for package: cockpit-ovirt-dashboard-0.10.10-0.el7ev.noarch
 
 ...Trunk Output
 
----> Package ruby-irb.noarch 0:2.0.0.648-30.el7 will be installed
 --> Running transaction check
 ---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
 ---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
@@ -359,22 +383,19 @@ Resolving Dependencies
 
 Dependencies Resolved
 
-==============================================================================================================================
- Package                           Arch            Version                          Repository                               Size
-==============================================================================================================================
+============================================================================================================================
+ Package                           Arch            Version                          Repository                      Size
+============================================================================================================================
 Installing:
- cockpit-ovirt-dashboard      		noarch          0.10.10-0.el7ev                   rhel-7-server-rhv-4-mgmt-agent-rpms      7.0 M
-Installing for dependencies:
- OVMF                             noarch          20170228-5.gitc325e41585e3.el7    rhel-7-server-rpms                       1.5 M
- OpenIPMI-modalias                x86_64          2.0.19-15.el7                     rhel-7-server-rpms                        15 k
+ cockpit-ovirt-dashboard      noarch        0.10.10-0.el7ev                   rhel-7-server-rhv-4-mgmt-agent-rpms      7.0 M
+ OVMF                         noarch        20170228-5.gitc325e41585e3.el7    rhel-7-server-rpms                       1.5 M
+ OpenIPMI-modalias            x86_64        2.0.19-15.el7                     rhel-7-server-rpms                        15 k
 
 ...Trunk Output
 
- xmlrpc-c                         x86_64          1.32.5-1905.svn2451.el7           rhel-7-server-rpms                       130 k
- xmlrpc-c-client                  x86_64          1.32.5-1905.svn2451.el7           rhel-7-server-rpms                        32 k
- yajl                             x86_64          2.0.4-4.el7                       rhel-7-server-rpms                        39 k
- yum-utils                        noarch          1.1.31-42.el7                     rhel-7-server-rpms                       117 k
-
+ xmlrpc-c                         x86_64          1.32.5-1905.svn2451.el7     rhel-7-server-rpms                       130 k
+ xmlrpc-c-client                  x86_64          1.32.5-1905.svn2451.el7     rhel-7-server-rpms                        32 k
+ yajl                             x86_64          2.0.4-4.el7                 rhel-7-server-rpms                        39 k
 Transaction Summary
 ========================================================================================
 Install  1 Package (+325 Dependent packages)
@@ -392,7 +413,7 @@ Downloading packages:
 (324/326): xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64.rpm             |  32 kB  00:00:00
 (325/326): yajl-2.0.4-4.el7.x86_64.rpm                                    |  39 kB  00:00:00
 (326/326): yum-utils-1.1.31-42.el7.noarch.rpm                             | 117 kB  00:00:00
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 Total                                                                    2.5 MB/s | 112 MB  00:00:45
 Running transaction check
 Running transaction test
@@ -401,13 +422,9 @@ Running transaction
   Installing : satyr-0.13-14.el7.x86_64                                       1/326
   Installing : ruby-libs-2.0.0.648-30.el7.x86_64                              2/326
   Installing : yajl-2.0.4-4.el7.x86_64                                        3/326
-  Installing : 1:telnet-0.17-64.el7.x86_64                                    4/326
-  Installing : augeas-libs-1.4.0-2.el7_4.2.x86_64                             5/326
 
 ...Trunk Output
 
-  Verifying  : xmlrpc-c-client-1.32.5-1905.svn2451.el7.x86_64               322/326
-  Verifying  : cyrus-sasl-2.1.26-21.el7.x86_64                              323/326
   Verifying  : seabios-bin-1.10.2-3.el7_4.1.noarch                          324/326
   Verifying  : abrt-addon-pstoreoops-2.1.11-48.el7.x86_64                   325/326
   Verifying  : setools-libs-3.3.8-1.1.el7.x86_64                            326/326
@@ -415,22 +432,19 @@ Running transaction
 Installed:
   cockpit-ovirt-dashboard.noarch 0:0.10.10-0.el7ev
 Dependency Installed:
-  OVMF.noarch 0:20170228-5.gitc325e41585e3.el7     OpenIPMI-modalias.x86_64 0:2.0.19-15.el7          PyYAML.x86_64 0:3.10-11.el7
-  abrt.x86_64 0:2.1.11-48.el7                      abrt-addon-ccpp.x86_64 0:2.1.11-48.el7            abrt-addon-kerneloops.x86_64 0:2.1.11-48.el7
-  abrt-addon-pstoreoops.x86_64 0:2.1.11-48.el7     abrt-addon-python.x86_64 0:2.1.11-48.el7          abrt-addon-vmcore.x86_64 0:2.1.11-48.el7
-  abrt-addon-xorg.x86_64 0:2.1.11-48.el7           abrt-cli.x86_64 0:2.1.11-48.el7                   abrt-dbus.x86_64 0:2.1.11-48.el7
-  abrt-libs.x86_64 0:2.1.11-48.el7                 abrt-python.x86_64 0:2.1.11-48.el7                abrt-tui.x86_64 0:2.1.11-48.el7
+  OVMF.noarch 0:20170228-5.gitc325e41585e3.el7     OpenIPMI-modalias.x86_64 0:2.0.19-15.el7       PyYAML.x86_64 0:3.10-11.el7
+  abrt.x86_64 0:2.1.11-48.el7                      abrt-addon-ccpp.x86_64 0:2.1.11-48.el7         abrt-addon-
 
 ...Trunk Output
 
-  vdsm-api.noarch 0:4.19.45-1.el7ev                vdsm-cli.noarch 0:4.19.45-1.el7ev                 vdsm-client.noarch 0:4.19.45-1.el7ev
-  vdsm-hook-vmfex-dev.noarch 0:4.19.45-1.el7ev     vdsm-jsonrpc.noarch 0:4.19.45-1.el7ev             vdsm-python.noarch 0:4.19.45-1.el7ev
-  vdsm-xmlrpc.noarch 0:4.19.45-1.el7ev             vdsm-yajsonrpc.noarch 0:4.19.45-1.el7ev           virt-v2v.x86_64 1:1.36.3-6.el7_4.3
-  xmlrpc-c.x86_64 0:1.32.5-1905.svn2451.el7        xmlrpc-c-client.x86_64 0:1.32.5-1905.svn2451.el7  yajl.x86_64 0:2.0.4-4.el7
+  vdsm-xmlrpc.noarch 0:4.19.45-1.el7ev             vdsm-yajsonrpc.noarch 0:4.19.45-1.el7ev           virt-v2v.x86_64 
+  xmlrpc-c.x86_64 0:1.32.5-1905.svn2451.el7        xmlrpc-c-client.x86_64 0:1.32.5-1905.svn2451.el7  yajl.x86_64
   yum-utils.noarch 0:1.1.31-42.el7
 
 Complete!
+
 ----
+
 === Habilitar e iniciar servicio cockpit
 ----
 [root@hiper1 ~]# systemctl enable cockpit.socket
@@ -438,10 +452,12 @@ Created symlink from /etc/systemd/system/sockets.target.wants/cockpit.socket to 
 
 [root@hiper1 ~]# systemctl start cockpit.socket
 ----
+
 === Modificar hostname de equipo RHV-H
 ----
 [root@hiper1 ~]# hostnamectl set-hostname hiper1.example.com
 ----
+
 === Reinicio de equipo
 ----
 [root@hiper1 ~]# reboot
@@ -450,6 +466,7 @@ We are no longer a registered authentication agent.
 Connection to 104.196.124.183 closed by remote host.
 Connection to 104.196.124.183 closed.
 ----
+
 === Conectarse vía ssh a equipo asignado de Storage (utilizar ip asignada por laboratorio)
 ----
 ssh -l root 35.196.62.237
@@ -461,14 +478,15 @@ Warning: Permanently added '35.196.62.237' (ECDSA) to the list of known hosts.
 root@35.196.62.237's password:
 Last login: Wed Oct  4 13:29:24 2017 from 189.216.165.215
 ----
+
 === Enlistar particiones en disco
 ----
 [root@storage ~]# fdisk -l
 
 Disk /dev/sda: 214.7 GB, 214748364800 bytes, 419430400 sectors
 Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 4096 bytes
-I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Sector size (logical/physical): 512 bytes/4096 bytes
+I/O size (minimum/optimal): 4096 bytes/4096 bytes
 Disk label type: dos
 Disk identifier: 0x000ad69e
 
@@ -478,14 +496,14 @@ Disk identifier: 0x000ad69e
 
 Disk /dev/mapper/rhel-root: 13.4 GB, 13417578496 bytes, 26206208 sectors
 Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 4096 bytes
-I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Sector size (logical/physical): 512 bytes/4096 bytes
+I/O size (minimum/optimal): 4096 bytes/4096 bytes
 
 
 Disk /dev/mapper/rhel-swap: 1610 MB, 1610612736 bytes, 3145728 sectors
 Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 4096 bytes
-I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Sector size (logical/physical): 512 bytes/4096 bytes
+I/O size (minimum/optimal): 4096 bytes/4096 bytes
 ----
 === Enlistar Volume Groups
 ----
@@ -568,14 +586,12 @@ Syncing disks.
   VG   #PV #LV #SN Attr   VSize   VFree
   rhel   2   2   0 wz--n- 198.99g 185.00g
 ----
-
 === Extender el Logical Volume /root con nuevo
 ----
 [root@storage ~]# lvextend -L +160G /dev/rhel/root
   Size of logical volume rhel/root changed from 12.50 GiB (3199 extents) to 172.50 GiB (44159 extents).
   Logical volume rhel/root successfully resized.
 ----
-
 === Verificar nuevo tamaño de LOgical Volume
 ----
 [root@storage ~]# lvscan
@@ -634,13 +650,7 @@ Resolving Dependencies
 --> Running transaction check
 ---> Package nfs-utils.x86_64 1:1.3.0-0.48.el7_4.1 will be installed
 --> Processing Dependency: gssproxy >= 0.7.0-3 for package: 1:nfs-utils-1.3.0-0.48.el7_4.1.x86_64
---> Processing Dependency: libtirpc >= 0.2.4-0.7 for package: 1:nfs-utils-1.3.0-0.48.el7_4.1.x86_64
---> Processing Dependency: keyutils for package: 1:nfs-utils-1.3.0-0.48.el7_4.1.x86_64
---> Processing Dependency: libevent for package: 1:nfs-utils-1.3.0-0.48.el7_4.1.x86_64
---> Processing Dependency: libnfsidmap for package: 1:nfs-utils-1.3.0-0.48.el7_4.1.x86_64
 
----> Package texlive-kpathsea.noarch 2:svn28792.0-38.el7 will be installed
----> Package texlive-kpathsea-bin.x86_64 2:svn27347.0-38.20130427_r30134.el7 will be installed
 --> Running transaction check
 ---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
 ---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
@@ -660,7 +670,7 @@ Installing:
 Installing for dependencies:
  SDL                               x86_64      1.2.15-14.el7           rhel-7-server-rpms     204 k
 
- ...Trunk Output
+...Trunk Output
 
  texlive-kpathsea-lib              x86_64      2:2012-38.20130427      rhel-7-server-rpms      78 k
  time                              x86_64      1.7-45.el7              rhel-7-server-rpms      30 k
@@ -714,21 +724,21 @@ Running transaction
   Verifying  : glib2-2.46.2-4.el7.x86_64 n                                   134/134
 
 Installed:
-  nfs-utils.x86_64 1:1.3.0-0.48.el7_4.1                    nfs4-acl-tools.x86_64 0:0.3.3-15.el7
-  nfsometer.noarch 0:1.7-1.el7                            nfstest.noarch 0:2.1.5-1.el7
+  nfs-utils.x86_64 1:1.3.0-0.48.el7_4.1                                   nfs4-acl-tools.x86_64 0:0.3.3-15.el7
+  nfsometer.noarch 0:1.7-1.el7                                            nfstest.noarch 0:2.1.5-1.el7
 
 Dependency Installed:
-  SDL.x86_64 0:1.2.15-14.el7                                              agg.x86_64 0:2.5-18.el7                                               atk.x86_64 0:2.22.0-3.el7
-  atlas.x86_64 0:3.10.1-12.el7                                            avahi-libs.x86_64 0:0.6.31-17.el7                                     blas.x86_64 0:3.4.2-8.el7
-  cairo.x86_64 0:1.14.8-2.el7                                             cups-libs.x86_64 1:1.6.3-29.el7                                       dejavu-fonts-common.noarch 0:2.33-6.el7
-
+  SDL.x86_64 0:1.2.15-14.el7                                              agg.x86_64 0:2.5-18.el7                             
+  atlas.x86_64 0:3.10.1-12.el7                                            avahi-libs.x86_64 0:0.6.31-17.el7                   
+  cairo.x86_64 0:1.14.8-2.el7                                             cups-libs.x86_64 1:1.6.3-29.el7                   
+  
 ...Trunk Output
 
-  texlive-dvipng.noarch 2:svn26689.1.14-38.el7                            texlive-dvipng-bin.x86_64 2:svn26509.0-38.20130427_r30134.el7         texlive-kpathsea.noarch 2:svn28792.0-38.el7
-  texlive-kpathsea-bin.x86_64 2:svn27347.0-38.20130427_r30134.el7         texlive-kpathsea-lib.x86_64 2:2012-38.20130427_r30134.el7             time.x86_64 0:1.7-45.el7
+  texlive-dvipng.noarch 2:svn26689.1.14-38.el7                            texlive-dvipng-bin.x86_
+  texlive-kpathsea-bin.x86_64 2:svn27347.0-38.20130427_r30134.el7         texlive-kpathsea-lib.x86_64
 
 Dependency Updated:
-  glib2.x86_64 0:2.50.3-3.el7                                                                            krb5-libs.x86_64 0:1.15.1-8.el7
+  glib2.x86_64 0:2.50.3-3.el7                                             krb5-libs.x86_64 0:1.15.1-8.el7
 
 Complete!
 ----
