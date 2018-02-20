@@ -471,3 +471,12 @@ Connection to 104.196.124.183 closed.
 == Ejercicio 3.
 
 = Configuración de Red Hat Manager.
+
+image::./img/Lab3_1.png[Login]
+image::./img/Lab3_2.png[Creacion de Datacenter]
+image::./img/Lab3_3.png[Creacion de Cluster]
+image::./img/Lab3_4.png[Instalación de Hipervisor]
+image::./img/Lab3_5.png[Validación de Hipervisor]
+
+
+
