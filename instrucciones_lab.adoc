@@ -26,7 +26,7 @@ gráfica de usuario centralizada o API RESTful.
 
 * Arquitectura Red Hat Virtualization.
 
-image::./img/471.png[Host]
+image::./img/471.png[Arquitectura]
 
 
 === DISCLAIMER
@@ -44,11 +44,17 @@ Que *NO ES* este laboratorio:
 
 == Ejercicio 1.
 
-= Instalación y configuración de RHV-M y RHV-H (storage NFS)
+= Instalación y configuración de Red Hat Virtualization.
+El siguiente diagrama describe el procedimiento de configuración para una implementación de Manager independiente y una implementación de motor autohospedado.
 
+image::./img/RHEV_SHE_454569_0717_JCS_deployment_02.png[Procedimiento]
+
+Una vez que haya instalado un sistema operativo Red Hat Enterprise Linux y se haya asegurado de que el sistema cumpla con los  registros necesarios de una suscripción de Red Hat será necesario suscribir a los repositorios necesarios para instalar los paquetes de Red Hat Virtualization Manager (RHV-M).
+
+TIP: Este proceso a sido realizado durante el deployment del ambiente.
 
 :sectnums:
-=== Conectarse vía ssh al equipo que asignado como Master (utilizar ip asignada por laboratorio)
+=== Conectarse vía ssh al equipo asignado como Manager (utilizar ip asignada por laboratorio)
 ----
 ssh -l root 35.190.175.2
 The authenticity of host '35.190.175.2 (35.190.175.2)' can't be established.
@@ -60,12 +66,25 @@ root@35.190.175.2's password:
 Last login: Wed Oct  4 13:29:24 2017 from 189.216.165.215
 ----
 
-=== Cambiar hostname del RHV-Manager
+=== Antes de poder configurar y utilizar RHV - Manager, debe instalar el paquete y las dependencias de rhevm.
+
+Para asegurarse que todos los paquetes estén actualizados, ejecute el siguiente comando en la máquina donde está instalando Red Hat Virtualization Manager:
+----
+[root@manager ~]# # yum update -y
+----
+
+WARNING: Reinicie la máquina si se han actualizado paquetes relacionados con el kernel.
+
+=== Asignar hostname del RHV-Manager.
+
+Es importante que antes de comenzar con el proceso de instalación tengamos configurado el nombre de nuestro RHV - Manager
+debido a que durante el proceso de configuración se auto-firmaran certificados de identidad los cuales son asociados al hostname.
+
 ----
 [root@manager ~]# hostnamectl set-hostname manager.example.com
 ----
 
-=== Instalación de paquete RHV-M necesario
+=== Ejecute el siguiente comando para instalar el paquete y las dependencias de rhevm 
 ----
 [root@manager ~]# yum install rhvm -y
 Loaded plugins: product-id, search-disabled-repos, subscription-manager
