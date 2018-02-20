@@ -498,6 +498,8 @@ Verifique que la información a reserva de la ip sea similar a la de la imagen y
 
 image::./img/Lab3_5.png[Datos de Hipervisor]
 
+Una vez terminado el proceso, ud. debería ver una imagen parecida a la siguiente.
+
 image::./img/Lab3_6.png[Hipervisor en Operación]
 
 
