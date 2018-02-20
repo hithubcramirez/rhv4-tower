@@ -472,11 +472,31 @@ Connection to 104.196.124.183 closed.
 
 = Configuración de Red Hat Manager.
 
+Cuando se realiza un Login, el dashboard Default siempre mostrará un resumen de toda nuestra infraestructura, RAM, CPU, Storage.
+
 image::./img/Lab3_1.png[Login]
-image::./img/Lab3_2.png[Creacion de Datacenter]
-image::./img/Lab3_3.png[Creacion de Cluster]
+
+Para comenzar a realizar nuestra configuración crearemos un nuevo datacenter con el nombre *TestDrive*.
+
+image::./img/Lab3_1.1.png[Creacion de Datacenter]
+
+Dé click en el ícono *Crear Clúster*
+
+image::./img/Lab3_2.png[Creacion de Cluster]
+
+Verifique que la información de los campos sea igual a la de la imagen.
+
+image::./img/Lab3_3.png[Datos Cluster ]
+
+Dé click en el ícono de *Configurar Host*
+
 image::./img/Lab3_4.png[Instalación de Hipervisor]
-image::./img/Lab3_5.png[Validación de Hipervisor]
+
+Verifique que la información a reserva de la ip sea similar a la de la imagen.
+
+image::./img/Lab3_5.png[Datos de Hipervisor]
+
+image::./img/Lab3_6.png[Hipervisor en Operación]
 
 
 
