@@ -26,9 +26,7 @@ gráfica de usuario centralizada o API RESTful.
 
 * Arquitectura Red Hat Virtualization.
 
-![GitHub Logo](/img/471.png)
-
-
+image::./img/471.png[Host]
 
 
 === DISCLAIMER
