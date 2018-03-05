@@ -73,6 +73,20 @@ Last login: Wed Oct  4 13:29:24 2017 from 189.216.165.215
 === Requisitos RHV - Manager.
 
 Para asegurarse que todos los paquetes estén actualizados, agregue los canales necesarios y después ejecute el siguiente comando en la máquina donde está instalando Red Hat Virtualization Manager:
+
+---
+[root@manager ~]#subscription-manager register --username=test-drive --password='redhat2018' --force
+---
+
+---
+[root@manager ~]# subscription-manager attach --pool=8a85f98160e6119c0160e901f57f767f
+---
+
+---
+[root@manager ~]# subscription-manager repos --disable=*
+---
+
+
 ----
 [root@manager ~]# subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-supplementary-rpms --enable=rhel-7-server-rhv-4-beta-rpms --enable=rhel-7-server-rhv-4-tools-beta-rpms --enable=jb-eap-7-for-rhel-7-server-rpms
 ----
