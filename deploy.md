@@ -71,7 +71,7 @@
   remote_user: root
   vars:
     - tower_path: /tmp/ansible-tower-last-release
-    - tower_admin_pass: "R3dH@t2017!.-"
+    - tower_admin_pass: "towerpasswd"
     - rhn_username: rhn_user
     - rhn_pass: "rhn_passwd"
     - hostname_full: towermp123456.themike.systems
