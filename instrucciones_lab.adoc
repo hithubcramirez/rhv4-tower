@@ -374,22 +374,22 @@ Un host de Red Hat Enterprise Linux, también conocido como hipervisor basado en
 Asegúrese de que todos los paquetes actualmente instalados estén actualizados:
 
 ----
-[root@manager ~]#subscription-manager register --username=test-drive --password='redhat2018' --force
+[root@hipervisoramapm ~]#subscription-manager register --username=test-drive --password='redhat2018' --force
 ----
 
 ----
-[root@manager ~]# subscription-manager attach --pool=8a85f98160e6119c0160e901f57f767f
+[root@hipervisoramapm ~]# subscription-manager attach --pool=8a85f98160e6119c0160e901f57f767f
 ----
 
 ----
-[root@manager ~]# subscription-manager repos --disable=*
+[root@hipervisoramapm ~]# subscription-manager repos --disable=*
 ----
 
 ----
 [root@hipervisoramapm ~]#  subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-rhv-4-mgmt-agent-beta-rpms
 ----
 ----
-[root@manager ~]# yum update -y
+[root@hipervisoramapm ~]# yum update -y
 ----
 
 Puede instalar una interfaz de usuario de Cockpit para supervisar los recursos del host y realizar tareas administrativas.
@@ -397,7 +397,7 @@ Puede instalar una interfaz de usuario de Cockpit para supervisar los recursos d
 Cockpit es un administrador de servidor que facilita la administración de sus servidores GNU/Linux a través de un navegador web.
 
 ----
-[root@hiper1 ~]# yum install cockpit-ovirt-dashboard
+[root@hipervisoramapm ~]# yum install cockpit-ovirt-dashboard
 Loaded plugins: product-id, search-disabled-repos, subscription-manager
 Resolving Dependencies
 --> Running transaction check
@@ -477,15 +477,15 @@ Complete!
 
 === Habilitar e iniciar servicio cockpit
 ----
-[root@hiper1 ~]# systemctl enable cockpit.socket
+[root@hipervisoramapm ~]# systemctl enable cockpit.socket
 Created symlink from /etc/systemd/system/sockets.target.wants/cockpit.socket to /usr/lib/systemd/system/cockpit.socket.
 
-[root@hiper1 ~]# systemctl start cockpit.socket
+[root@hipervisoramapm ~]# systemctl start cockpit.socket
 ----
 
 === Modificar hostname de equipo RHV-H
 ----
-[root@hiper1 ~]# hostnamectl set-hostname hiper1.example.com
+[root@hipervisoramapm ~]# hostnamectl set-hostname hiper1.example.com
 ----
 
 === Reinicio de equipo
