@@ -79,7 +79,7 @@ Para asegurarse que todos los paquetes estén actualizados, agregue los canales 
 ----
 
 ----
-[root@manager ~]# subscription-manager attach --pool=8a85f98160e6119c0160e901f57f767f
+[root@manager ~]# subscription-manager attach --pool=8a85f98160e6119c0160e901ed9d765a
 ----
 
 ----
