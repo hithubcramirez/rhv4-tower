@@ -54,6 +54,10 @@ Una vez que haya instalado un sistema operativo Red Hat Enterprise Linux y se ha
 TIP: Este proceso a sido realizado durante el deployment del ambiente.
 
 === Conectarse vía ssh al equipo asignado como Manager (utilizar ip asignada por laboratorio)
+
+*user : root*
+*password: r3dh4t1!*
+
 ----
 ssh -l root 35.190.175.2
 The authenticity of host '35.190.175.2 (35.190.175.2)' can't be established.
