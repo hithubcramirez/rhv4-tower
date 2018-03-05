@@ -502,5 +502,13 @@ Una vez terminado el proceso, ud. debería ver una imagen parecida a la siguient
 
 image::./img/Lab3_6.png[Hipervisor en Operación]
 
+---
+
+== Ejercicio 4.
+
+= Integracion RHEV Manager - CloudForms.
+
+
+
 
 
