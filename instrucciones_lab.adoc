@@ -56,6 +56,7 @@ TIP: Este proceso a sido realizado durante el deployment del ambiente.
 === Conectarse vía ssh al equipo asignado como Manager (utilizar ip asignada por laboratorio)
 
 *user : root*
+
 *password: r3dh4t1!*
 
 ----
